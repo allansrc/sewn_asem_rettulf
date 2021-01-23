@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mesa_news_app/app/routes/app_routes.dart';
 import 'package:mesa_news_app/app/themes/app_theme.dart';
 import 'package:mesa_news_app/app/widgets/app_button_widget.dart';
 
@@ -7,7 +8,6 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(brightness: Brightness.dark),
       backgroundColor: mesaColor,
       body: Container(
         padding: EdgeInsets.all(20),
@@ -55,7 +55,7 @@ class LoginPage extends StatelessWidget {
             title: 'Entrar com e-mail',
             fontColor: Colors.white,
             btnColor: mesaColor,
-            onTap: () => print('e-mail'),
+            onTap: () => Get.toNamed(AppRoutes.login),
           ),
           SizedBox(height: 16),
           Container(
@@ -68,7 +68,7 @@ class LoginPage extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
                 InkWell(
-                  onTap: () => print('Cadastrar'),
+                  onTap: () => Get.toNamed(AppRoutes.signup),
                   child: Text(
                     'Cadastrar. ',
                     style: TextStyle(color: Colors.blue),

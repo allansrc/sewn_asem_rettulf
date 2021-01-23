@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/state_manager.dart';

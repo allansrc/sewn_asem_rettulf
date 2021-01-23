@@ -13,6 +13,7 @@ class LoginDI implements Bindings {
       Dio(BaseOptions(baseUrl: 'https://mesa-news-api.herokuapp.com/')),
       permanent: true,
     );
+    // Get.lazyPut(()=>
     Get.put(
       LoginController(
         AuthRepository(
