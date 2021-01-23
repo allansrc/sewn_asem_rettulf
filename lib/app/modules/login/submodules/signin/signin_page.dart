@@ -79,7 +79,7 @@ class SigninPage extends GetView<LoginController> {
                               print(result);
                               if (result) {
                                 WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
-                                controller.getLogin();
+                                controller.postLogin();
                               }
                             },
                           )),

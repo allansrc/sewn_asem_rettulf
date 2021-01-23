@@ -16,6 +16,20 @@ class LoginController extends GetxController {
   final Rx<GlobalKey<FormState>> formKeySignup = GlobalKey<FormState>().obs;
   final storage = GetStorage();
   final RxString userToken = ''.obs;
+  postLogin() async {
+    BotToast.showCustomLoading(
+      toastBuilder: (_) => WaitDialog(title: 'Aguarde...', message: 'Efetuando login'),
+      ignoreContentClick: true,
+    );
+
+    final resultToken = await _repository.postAuth(userTextController.text, passwordTextController.text);
+
+    userToken.value = resultToken;
+    storage.write('token', resultToken);
+
+    BotToast.closeAllLoading();
+  }
+
   getLogin() async {
     BotToast.showCustomLoading(
       toastBuilder: (_) => WaitDialog(title: 'Aguarde...', message: 'Efetuando login'),
@@ -25,7 +39,7 @@ class LoginController extends GetxController {
     final resultToken = await _repository.postAuth(userTextController.text, passwordTextController.text);
 
     userToken.value = resultToken;
-    if (resultToken != null) storage.write('token', resultToken);
+    storage.write('token', resultToken);
 
     BotToast.closeAllLoading();
   }
