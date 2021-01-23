@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:mesa_news_app/app/modules/login/login_di.dart';
 import 'package:mesa_news_app/app/modules/login/login_page.dart';
 import 'package:mesa_news_app/app/modules/login/submodules/signin/signin_page.dart';
 import 'package:mesa_news_app/app/modules/login/submodules/signup/signup_page.dart';
@@ -9,6 +10,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.initial,
       page: () => LoginPage(),
+      binding: LoginDI(),
     ),
     GetPage(
       name: AppRoutes.login,

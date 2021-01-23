@@ -13,6 +13,8 @@ class SignupPage extends StatelessWidget {
       appBar: AppBar(
         leading: GestureDetector(onTap: () => Get.back(), child: Icon(Icons.close)),
         brightness: Brightness.dark,
+        title: Text('Entrar com e-mail'),
+        centerTitle: true,
       ),
     );
   }
