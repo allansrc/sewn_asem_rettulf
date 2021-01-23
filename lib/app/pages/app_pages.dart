@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:mesa_news_app/app/modules/feed/feed_di.dart';
+import 'package:mesa_news_app/app/modules/feed/feed_page.dart';
 import 'package:mesa_news_app/app/modules/login/login_di.dart';
 import 'package:mesa_news_app/app/modules/login/login_page.dart';
 import 'package:mesa_news_app/app/modules/login/submodules/signin/signin_page.dart';
@@ -21,8 +23,9 @@ abstract class AppPages {
       page: () => SignupPage(),
     ),
     GetPage(
-      name: AppRoutes.initial,
-      page: () => LoginPage(),
+      name: AppRoutes.feed,
+      page: () => FeedPage(),
+      binding: FeedDI(),
     ),
     GetPage(
       name: AppRoutes.initial,

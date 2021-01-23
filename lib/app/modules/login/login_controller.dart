@@ -2,7 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:mesa_news_app/app/services/repositories/auth_repository.dart';
+import 'package:mesa_news_app/app/services/repositories/http_repository.dart';
 import 'package:mesa_news_app/app/widgets/custom_loading_widget.dart';
 
 class LoginController extends GetxController {

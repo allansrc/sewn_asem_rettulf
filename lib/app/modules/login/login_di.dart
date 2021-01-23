@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/instance_manager.dart';
 import 'package:mesa_news_app/app/services/providers/auth_provider.dart';
-import 'package:mesa_news_app/app/services/repositories/auth_repository.dart';
+import 'package:mesa_news_app/app/services/repositories/http_repository.dart';
 
 import 'login_controller.dart';
 
@@ -17,7 +17,7 @@ class LoginDI implements Bindings {
     Get.put(
       LoginController(
         AuthRepository(
-          apiProvider: AuthProvider(
+          apiProvider: HttpProvider(
             Get.find(),
           ),
         ),

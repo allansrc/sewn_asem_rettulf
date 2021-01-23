@@ -1,10 +1,12 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
+import 'package:mesa_news_app/app/routes/app_routes.dart';
 import 'package:mesa_news_app/app/services/providers/auth_provider.dart';
 import 'package:mesa_news_app/app/widgets/custom_loading_widget.dart';
 
 class AuthRepository {
-  final AuthProvider apiProvider;
+  final HttpProvider apiProvider;
 
   AuthRepository({this.apiProvider});
 
@@ -15,6 +17,8 @@ class AuthRepository {
         data: {"email": email, "password": password},
       );
       if (response.statusCode == 200) print(response.data);
+      Get.back();
+      Get.offAndToNamed(AppRoutes.feed);
       return response.data["token"];
     } on DioError catch (err) {
       BotToast.closeAllLoading();

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-class AuthProvider {
+class HttpProvider {
   final Dio httpProvider;
-  AuthProvider(this.httpProvider);
+  HttpProvider(this.httpProvider);
 }
