@@ -12,7 +12,8 @@ class LoginController extends GetxController {
 
   final TextEditingController userTextController = TextEditingController();
   final TextEditingController passwordTextController = TextEditingController();
-  final Rx<GlobalKey<FormState>> formKey = GlobalKey<FormState>().obs;
+  final Rx<GlobalKey<FormState>> formKeySignin = GlobalKey<FormState>().obs;
+  final Rx<GlobalKey<FormState>> formKeySignup = GlobalKey<FormState>().obs;
   final storage = GetStorage();
   final RxString userToken = ''.obs;
   getLogin() async {

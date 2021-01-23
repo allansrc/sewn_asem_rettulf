@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mesa_news_app/app/routes/app_routes.dart';
+import 'package:mesa_news_app/app/modules/login/login_controller.dart';
 import 'package:mesa_news_app/app/themes/app_theme.dart';
 import 'package:mesa_news_app/app/widgets/app_button_widget.dart';
 import 'package:mesa_news_app/app/widgets/app_textfiel_widget.dart';
 
-import '../../login_controller.dart';
-
-class SigninPage extends GetView<LoginController> {
+class SignupPage extends StatelessWidget {
+  final LoginController controller = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(onTap: () => Get.back(), child: Icon(Icons.close)),
         brightness: Brightness.dark,
+        title: Text('Cadastrar'),
+        centerTitle: true,
       ),
       body: GestureDetector(
         onTap: () => WidgetsBinding.instance.focusManager.primaryFocus?.unfocus(),
@@ -22,13 +23,18 @@ class SigninPage extends GetView<LoginController> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 40),
-                  child: Center(child: Image.asset('assets/images/signin.png')),
-                ),
+                SizedBox(height: 20),
                 Form(
-                    key: controller.formKey.value,
+                    key: controller.formKeySignup.value,
                     child: Column(children: [
+                      AppTextFieldWidget(
+                        title: 'Nome',
+                        childWidget: TextField(
+                            decoration: InputDecoration(
+                          border: InputBorder.none,
+                        )),
+                      ),
+                      SizedBox(height: 20),
                       AppTextFieldWidget(
                         title: 'E-mail',
                         childWidget: TextField(
@@ -45,55 +51,31 @@ class SigninPage extends GetView<LoginController> {
                         )),
                       ),
                       SizedBox(height: 20),
+                      AppTextFieldWidget(
+                        title: 'Confirmar senha',
+                        childWidget: TextField(
+                            decoration: InputDecoration(
+                          border: InputBorder.none,
+                        )),
+                      ),
+
+                      // NOTE: Omitir data de nascimento : Post Body method not allowed
+
+                      SizedBox(height: 20),
                       Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           child: AppButtonWidget(
-                            title: 'Login',
+                            title: 'Cadastrar',
                             btnColor: mesaColor,
                             fontColor: Colors.white,
                           )),
                       SizedBox(height: 20),
                     ])),
                 SizedBox(height: Get.height * .075),
-                bottomOptionsAction(),
               ],
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget bottomOptionsAction() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 20),
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        children: [
-          AppButtonWidget(
-            title: 'Entrar com Facebook',
-            onTap: () => print('facebook'),
-            borderColor: mesaColor,
-            fontColor: mesaColor,
-          ),
-          SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Não tenho conta. ',
-                style: TextStyle(color: mesaColor),
-              ),
-              InkWell(
-                onTap: () => Get.toNamed(AppRoutes.signup),
-                child: Text(
-                  'Cadastrar. ',
-                  style: TextStyle(color: Colors.blue),
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }
