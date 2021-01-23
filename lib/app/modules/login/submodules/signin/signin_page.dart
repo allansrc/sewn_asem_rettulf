@@ -8,6 +8,7 @@ import 'package:mesa_news_app/app/widgets/app_textfiel_widget.dart';
 import '../../login_controller.dart';
 
 class SigninPage extends GetView<LoginController> {
+  final FocusNode _toPassNode = new FocusNode();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,19 +31,40 @@ class SigninPage extends GetView<LoginController> {
                     key: controller.formKeySignin.value,
                     child: Column(children: [
                       AppTextFieldWidget(
-                        title: 'E-mail',
-                        childWidget: TextField(
-                            decoration: InputDecoration(
-                          border: InputBorder.none,
-                        )),
-                      ),
+                          title: 'E-mail',
+                          childWidget: TextFormField(
+                              onEditingComplete: () => FocusScope.of(context).requestFocus(_toPassNode),
+                              controller: controller.userTextController,
+                              decoration: InputDecoration(border: InputBorder.none),
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Campo necessário';
+                                } else if (!value.contains('')) {
+                                  return 'Preencha com um e-mail válido';
+                                } else {
+                                  return null;
+                                }
+                              })),
                       SizedBox(height: 20),
                       AppTextFieldWidget(
                         title: 'Senha',
-                        childWidget: TextField(
+                        childWidget: TextFormField(
+                            focusNode: _toPassNode,
+                            obscureText: true,
                             decoration: InputDecoration(
-                          border: InputBorder.none,
-                        )),
+                              border: InputBorder.none,
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Campo necessário';
+                              } else if (!value.contains(RegExp(r'[A-Z]'))) {
+                                return 'A senha deve conter ao menos uma letra Maiúscula';
+                              } else if (!value.contains(RegExp(r'[0-9]'))) {
+                                return 'A senha deve conter ao menos um número';
+                              } else {
+                                return null;
+                              }
+                            }),
                       ),
                       SizedBox(height: 20),
                       Padding(
@@ -51,6 +73,11 @@ class SigninPage extends GetView<LoginController> {
                             title: 'Login',
                             btnColor: mesaColor,
                             fontColor: Colors.white,
+                            onTap: () {
+                              final result = controller.formKeySignin.value.currentState.validate();
+                              WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
+                              print(result);
+                            },
                           )),
                       SizedBox(height: 20),
                     ])),
