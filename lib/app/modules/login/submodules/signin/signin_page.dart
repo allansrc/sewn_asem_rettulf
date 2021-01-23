@@ -33,8 +33,9 @@ class SigninPage extends GetView<LoginController> {
                       AppTextFieldWidget(
                           title: 'E-mail',
                           childWidget: TextFormField(
-                              controller: controller.userTextController,
+                              controller: controller.emailTextController,
                               onEditingComplete: () => FocusScope.of(context).requestFocus(_toPassNode),
+                              keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(border: InputBorder.none),
                               validator: (value) {
                                 if (value.isEmpty) {

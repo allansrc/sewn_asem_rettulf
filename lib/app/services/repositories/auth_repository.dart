@@ -29,4 +29,36 @@ class AuthRepository {
       rethrow;
     }
   }
+
+  Future<String> postSignup(String user, email, password) async {
+    try {
+      final response = await apiProvider.httpProvider.post(
+        '/v1/client/auth/signup',
+        data: {
+          "name": user,
+          "email": email,
+          "password": password,
+        },
+      );
+      if (response.statusCode == 200) print(response.data);
+      BotToast.showCustomNotification(
+        toastBuilder: (_) => WaitDialog(
+          title: 'Tudo Pronto!',
+          message: 'Cadastro Realizado!',
+        ),
+      );
+      return response.data["token"];
+    } on DioError catch (err) {
+      BotToast.closeAllLoading();
+
+      print(err.response.data["message"]);
+      BotToast.showCustomNotification(
+        toastBuilder: (_) => WaitDialog(
+          title: 'Ops...',
+          message: '${err.response?.data["errors"][0]["message"]}',
+        ),
+      );
+      rethrow;
+    }
+  }
 }

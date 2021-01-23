@@ -10,37 +10,51 @@ class LoginController extends GetxController {
 
   LoginController(this._repository);
 
-  final TextEditingController userTextController = TextEditingController();
+// NOTE: Login/Signin
+  final TextEditingController emailTextController = TextEditingController();
   final TextEditingController passwordTextController = TextEditingController();
   final Rx<GlobalKey<FormState>> formKeySignin = GlobalKey<FormState>().obs;
+
+// NOTE: Login/Signup
+  final TextEditingController userController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passController = TextEditingController();
+  final TextEditingController confirmPassController = TextEditingController();
   final Rx<GlobalKey<FormState>> formKeySignup = GlobalKey<FormState>().obs;
+
   final storage = GetStorage();
   final RxString userToken = ''.obs;
   postLogin() async {
-    BotToast.showCustomLoading(
-      toastBuilder: (_) => WaitDialog(title: 'Aguarde...', message: 'Efetuando login'),
-      ignoreContentClick: true,
-    );
-
-    final resultToken = await _repository.postAuth(userTextController.text, passwordTextController.text);
-
+    _postLoginDiag();
+    final resultToken = await _repository.postAuth(emailTextController.text, passwordTextController.text);
     userToken.value = resultToken;
     storage.write('token', resultToken);
-
     BotToast.closeAllLoading();
   }
 
-  getLogin() async {
-    BotToast.showCustomLoading(
-      toastBuilder: (_) => WaitDialog(title: 'Aguarde...', message: 'Efetuando login'),
-      ignoreContentClick: true,
+  postSignup() async {
+    _postSignupDiag();
+    final resultToken = await _repository.postSignup(
+      userController.text,
+      emailController.text,
+      passController.text,
     );
-
-    final resultToken = await _repository.postAuth(userTextController.text, passwordTextController.text);
-
     userToken.value = resultToken;
     storage.write('token', resultToken);
-
     BotToast.closeAllLoading();
+    print('Done');
   }
+
+  _postLoginDiag() => BotToast.showCustomLoading(
+      ignoreContentClick: true,
+      toastBuilder: (_) => WaitDialog(
+            title: 'Aguarde...',
+            message: 'Efetuando login',
+          ));
+  _postSignupDiag() => BotToast.showCustomLoading(
+      ignoreContentClick: true,
+      toastBuilder: (_) => WaitDialog(
+            title: 'Aguarde...',
+            message: 'Efetuando Cadastro',
+          ));
 }
