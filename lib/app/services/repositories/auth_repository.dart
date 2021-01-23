@@ -1,5 +1,7 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
 import 'package:mesa_news_app/app/services/providers/auth_provider.dart';
+import 'package:mesa_news_app/app/widgets/custom_loading_widget.dart';
 
 class AuthRepository {
   final AuthProvider apiProvider;
@@ -15,7 +17,15 @@ class AuthRepository {
       if (response.statusCode == 200) print(response.data);
       return response.data["token"];
     } on DioError catch (err) {
-      print(err.response.data);
+      BotToast.closeAllLoading();
+
+      print(err.response.data["message"]);
+      BotToast.showCustomNotification(
+        toastBuilder: (_) => WaitDialog(
+          title: 'Ops...',
+          message: '${err.response.data["message"]}',
+        ),
+      );
       rethrow;
     }
   }

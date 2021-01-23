@@ -33,8 +33,8 @@ class SigninPage extends GetView<LoginController> {
                       AppTextFieldWidget(
                           title: 'E-mail',
                           childWidget: TextFormField(
-                              onEditingComplete: () => FocusScope.of(context).requestFocus(_toPassNode),
                               controller: controller.userTextController,
+                              onEditingComplete: () => FocusScope.of(context).requestFocus(_toPassNode),
                               decoration: InputDecoration(border: InputBorder.none),
                               validator: (value) {
                                 if (value.isEmpty) {
@@ -50,6 +50,7 @@ class SigninPage extends GetView<LoginController> {
                         title: 'Senha',
                         childWidget: TextFormField(
                             focusNode: _toPassNode,
+                            controller: controller.passwordTextController,
                             obscureText: true,
                             decoration: InputDecoration(
                               border: InputBorder.none,
@@ -75,8 +76,11 @@ class SigninPage extends GetView<LoginController> {
                             fontColor: Colors.white,
                             onTap: () {
                               final result = controller.formKeySignin.value.currentState.validate();
-                              WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
                               print(result);
+                              if (result) {
+                                WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
+                                controller.getLogin();
+                              }
                             },
                           )),
                       SizedBox(height: 20),

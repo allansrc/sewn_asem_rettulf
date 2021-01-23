@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -15,9 +16,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'MESA NEWS',
+      theme: appThemeData,
+      builder: BotToastInit(),
       getPages: AppPages.pages,
       initialRoute: AppRoutes.initial,
-      theme: appThemeData,
+      navigatorObservers: [
+        BotToastNavigatorObserver(),
+      ],
     );
   }
 }
