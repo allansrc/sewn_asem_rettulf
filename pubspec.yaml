@@ -10,10 +10,12 @@ environment:
 dependencies:
   dio:
   get:
-  get_storage:
   bot_toast:
-  time_elapsed: ^0.2.4+2
-  cached_network_image: ^2.5.0
+  get_storage:
+  time_elapsed:
+  connectivity:
+  cached_network_image:
+  data_connection_checker:
 
   flutter:
     sdk: flutter

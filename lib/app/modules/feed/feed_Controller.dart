@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:mesa_news_app/app/data/models/news_high_light_model.dart';
 import 'package:mesa_news_app/app/data/models/news_model.dart';
 import 'package:mesa_news_app/app/modules/login/login_controller.dart';
+import 'package:mesa_news_app/app/services/providers/no_connection.dart';
 import 'package:mesa_news_app/app/services/repositories/news_repository.dart';
 
 class FeedController extends GetxController {

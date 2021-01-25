@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mesa_news_app/app/modules/login/login_controller.dart';
+import 'package:mesa_news_app/app/services/providers/no_connection.dart';
 import 'package:mesa_news_app/app/themes/app_theme.dart';
 import 'package:mesa_news_app/app/widgets/app_button_widget.dart';
 import 'package:mesa_news_app/app/widgets/app_textfiel_widget.dart';
@@ -13,6 +14,7 @@ class SignupPage extends StatelessWidget {
   final FocusNode _toConfirmPassNode = new FocusNode();
   @override
   Widget build(BuildContext context) {
+    NConnection.checkConnection();
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(onTap: () => Get.back(), child: Icon(Icons.close)),

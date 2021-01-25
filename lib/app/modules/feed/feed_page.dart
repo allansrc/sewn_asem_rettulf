@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mesa_news_app/app/data/models/news_high_light_model.dart';
 import 'package:mesa_news_app/app/data/models/news_model.dart';
 import 'package:mesa_news_app/app/modules/feed/feed_Controller.dart';
+import 'package:mesa_news_app/app/services/providers/no_connection.dart';
 
 import 'widgets/news_card_widget.dart';
 import 'widgets/news_tile.dart';
@@ -10,6 +11,7 @@ import 'widgets/news_tile.dart';
 class FeedPage extends GetView<FeedController> {
   @override
   Widget build(BuildContext context) {
+    NConnection.checkConnection();
     return Scaffold(
       appBar: AppBar(
         brightness: Brightness.dark,
