@@ -29,7 +29,6 @@ class LoginController extends GetxController {
     final resultToken = await _repository.postAuth(emailTextController.text, passwordTextController.text);
     userToken.value = resultToken;
     storage.write('token', resultToken);
-    BotToast.closeAllLoading();
   }
 
   postSignup() async {
