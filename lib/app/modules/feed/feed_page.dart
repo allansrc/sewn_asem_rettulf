@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mesa_news_app/app/data/models/news_high_light_model.dart';
+import 'package:mesa_news_app/app/data/models/news_model.dart';
 import 'package:mesa_news_app/app/modules/feed/feed_Controller.dart';
 
 import 'widgets/news_card_widget.dart';
@@ -53,13 +54,13 @@ class FeedPage extends GetView<FeedController> {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                 )),
             Container(
-                child: Obx(() => controller.newsHighlights.value.data == null
+                child: Obx(() => controller.news.value.data == null
                     ? SizedBox()
                     : ListView.separated(
                         shrinkWrap: true,
-                        itemCount: controller.newsHighlights.value.data.length ?? 0,
+                        itemCount: controller?.news?.value?.data?.length ?? 0,
                         itemBuilder: (_, index) {
-                          final NewsHighLight newsByIndex = controller.newsHighlights.value.data[index];
+                          final NewsData newsByIndex = controller.news.value.data[index];
                           return Container(
                               constraints: BoxConstraints(minHeight: 96, maxHeight: Get.height * .45),
                               child: NewsCardWidget(
