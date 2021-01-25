@@ -20,9 +20,9 @@ class NewsRepository {
     }
   }
 
-  Future<NewsModel> getNews({String token}) async {
+  Future<NewsModel> getNews({int page = 1}) async {
     try {
-      final response = await apiProvider.httpProvider.get('/v1/client/news?current_page=&per_page=&published_at=');
+      final response = await apiProvider.httpProvider.get('/v1/client/news?current_page=$page&per_page=&published_at=');
       if (response.statusCode == 200) print('ok');
       return NewsModel.fromJson(response.data);
     } on DioError catch (err) {

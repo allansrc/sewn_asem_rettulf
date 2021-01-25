@@ -5,6 +5,8 @@ import 'package:mesa_news_app/app/modules/login/login_controller.dart';
 import 'package:mesa_news_app/app/services/providers/no_connection.dart';
 import 'package:mesa_news_app/app/services/repositories/news_repository.dart';
 
+import 'widgets/pagination.dart';
+
 class FeedController extends GetxController {
   LoginController loginController = Get.find();
 
@@ -12,11 +14,22 @@ class FeedController extends GetxController {
   @override
   void onInit() async {
     await getNewsHighLight();
-    await getNews();
+    ever(_paginationFilter, (_) => getNews());
+    _changePaginationFilter(1, 20);
     super.onInit();
   }
 
   final NewsRepository _repository;
+
+  final _paginationFilter = PaginationFilter().obs;
+  final _lastPage = false.obs;
+  bool get lastPage => _lastPage.value;
+  int get _page => _paginationFilter.value.page;
+  int get limit => _paginationFilter.value.limit;
+
+  // final lastPage = false.obs;
+  // final pagesLength = 0.obs;
+  // final pageCurrent = 1.obs;
 
   final newsHighlights = NewsHighLightModel().obs;
   Future<void> getNewsHighLight() async {
@@ -26,9 +39,25 @@ class FeedController extends GetxController {
   }
 
   final news = NewsModel().obs;
+  final newData = <NewsData>[].obs;
   Future<void> getNews() async {
-    final result = await _repository.getNews();
+    final result = await _repository.getNews(page: _paginationFilter.value.page);
     news.value = result;
+    if (result.pagination.totalPages == _page) {
+      _lastPage.value = true;
+    }
+    newData.addAll(result.data);
+
     print('news oks');
+  }
+
+  void loadNextPage() => _changePaginationFilter(_page + 1, limit);
+
+  void _changePaginationFilter(int page, int limit) {
+    print('chegou no final');
+    _paginationFilter.update((val) {
+      val.page = page;
+      val.limit = limit;
+    });
   }
 }
