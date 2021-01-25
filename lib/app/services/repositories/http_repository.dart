@@ -19,6 +19,7 @@ class AuthRepository {
       if (response.statusCode == 200) print(response.data);
       Get.back();
       Get.offAndToNamed(AppRoutes.feed);
+      apiProvider.httpProvider.options.headers["Authorization"] = "Bearer " + response.data["token"];
       return response.data["token"];
     } on DioError catch (err) {
       BotToast.closeAllLoading();

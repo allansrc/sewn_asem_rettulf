@@ -12,6 +12,7 @@ dependencies:
   get:
   get_storage:
   bot_toast:
+  time_elapsed: ^0.2.4+2
 
   flutter:
     sdk: flutter
